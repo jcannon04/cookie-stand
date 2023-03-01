@@ -37,7 +37,7 @@ p {
 }
 .logo {
     height: 250px;
-    background-image: url("/img/salmon.png");
+    background-image: url("../img/salmon.png");
     background-size: 27%;
     width: 100%;
     height: 100vh;
