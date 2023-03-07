@@ -125,6 +125,37 @@ address {
     margin-bottom: 10px;
 }
 
+.sale-item {
+    height: 250px;
+    width: 250px;
+}
+#cookie {
+    background-image: url('../assets/img/frosted-cookie.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+}
+#shirt {
+    background-image: url('../assets/img/shirt.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+#cutter {
+    background-image: url('../assets/img/cutter.jpeg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+#sale-items {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
 @keyframes swim {
     0% {
         transform: rotate(0deg);
