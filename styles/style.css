@@ -14,18 +14,25 @@ body {
 }
 h1 {
     font-size: 2.4em;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Josefin Sans', sans-serif; 
     color: rgb(58, 54, 45);
-    margin-bottom: 20px;
+}
+h3 {
+    font-size: 1.4em;
+    border-bottom: 2px solid rgb(58, 54, 45);;
+    padding-bottom: 0.5em;
+
 }
 h2,
-h3,
 h4,
 h5,
 h6 {
     font-family: 'Josefin Sans', sans-serif;
     color: rgb(58, 54, 45);
     margin-bottom: 20px;
+    font-size: 1.8em;
+    text-align: center;
+    
 }
 ul {
     list-style: none;
@@ -35,23 +42,172 @@ p {
     margin-top: 0px;
     font-size: 1.1em;
 }
-.logo {
-    height: 250px;
-    background-image: url("../img/salmon.png");
+/* .logo {
+    background-image: url("../assets/img/salmon.png");
     background-size: 27%;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    margin-bottom: 20px;
     z-index: -1;
     position: fixed;
+} */
+
+.fish-bg {
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.fish {
+    background-image: url("../assets/img/salmon.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    width: 262px;
+    height: 82px;
+    animation-name: swim;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+.fish2 {
+    background-image: url("../assets/img/salmon.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    width: 262px;
+    height: 82px;
+    animation-name: swim2;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }
 main {
-    width: 50vw;
+    width: 70vw;
 }
 .text {
     background-color: rgb(217, 133, 38);
     padding: 10px;
     border-radius: 15px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    text-align: center;
+}
 
+.hero {
+    background-image: url("../assets/img/family.jpg");
+    height: 30%;
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+.fish-img {
+    background-image: url('../assets/img/fish.jpg');
+    height: 250px;
+    width: 100%;
+    background-position: center;
+    background-repeat: repeat;
+
+}
+
+.location-hours {
+    text-align: left;
+}
+
+address {
+    margin-bottom: 10px;
+}
+
+.sale-item {
+    height: 250px;
+    width: 250px;
+}
+#cookie {
+    background-image: url('../assets/img/frosted-cookie.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+}
+#shirt {
+    background-image: url('../assets/img/shirt.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+#cutter {
+    background-image: url('../assets/img/cutter.jpeg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+#sale-items {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+@keyframes swim {
+    0% {
+        transform: rotate(0deg);
+        top: 0px;
+        left: 0vw;
+    }
+    25% {
+        transform: rotate(-10deg);
+        top: 20px;
+        left: 25vw;
+    }
+    50% {
+        transform: rotate(0deg);
+        top: 0px;
+        left: 50vw;
+    }
+    75% {
+        transform: rotate(10deg);
+        top: -20px;
+        left: 75;
+    }
+    100% {
+        transform: rotate(0deg);
+        top: 0px;
+        left: 100vw;
+    }
+} 
+
+@keyframes swim2 {
+    0% {
+        transform: rotate(0deg);
+        top: 0px;
+        left: -100vw;
+    }
+    25% {
+        transform: rotate(10deg);
+        top: 20px;
+        left: -75vw;
+    }
+    50% {
+        transform: rotate(0deg);
+        top: 0px;
+        left: -50vw;
+    }
+    75% {
+        transform: rotate(-10deg);
+        top: -20px;
+        left: -25vw;
+    }
+    100% {
+        transform: rotate(0deg);
+        top: 0px;
+        left: 0vw;
+    }
 }
