@@ -1,9 +1,4 @@
-/*
-rgba(0, 0, 0, 0)
-rgb(58, 54, 45)
-rgb(171, 101, 59)
-rgba(202, 167, 123, 234)
-*/
+
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     background-color: rgb(152, 188, 234);
@@ -40,16 +35,8 @@ ul {
 }
 p {
     margin-top: 0px;
-    font-size: 1.1em;
+    font-size: 1.4em;
 }
-/* .logo {
-    background-image: url("../assets/img/salmon.png");
-    background-size: 27%;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    position: fixed;
-} */
 
 .fish-bg {
     width: 100vw;
@@ -175,7 +162,7 @@ address {
     75% {
         transform: rotate(10deg);
         top: -20px;
-        left: 75;
+        left: 75vw;
     }
     100% {
         transform: rotate(0deg);
