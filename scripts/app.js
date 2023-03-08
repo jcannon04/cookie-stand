@@ -4,6 +4,7 @@
 function getRandomNumberBetween(min, max) {
   return Math.random() * (max - min) + min;
 }
+
 const militaryTime = {
   '06:00': '6am',
   '07:00': '7am',
@@ -63,7 +64,7 @@ Store.prototype.storeHourlySales = function () {
 };
 
 Store.prototype.randomCustPerHr = function () {
-  return Math.floor(
+  return Math.round(
     getRandomNumberBetween(this.minCustPerHr, this.maxCustPerHr)
   );
 };
@@ -176,13 +177,11 @@ let stores = [seattle, tokyo, dubai, paris, lima];
 let form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  let form = document.querySelector('form');
   let memphis = createObjectFrom(form);
-  console.log(timeInputsToHours());
   stores.push(memphis);
   makeTable(stores);
+  form.reset();
 });
-
 
 /* cannot set close time before open time and vise versa */
 let openTimeInput = document.querySelector('#openTime');
@@ -196,4 +195,17 @@ closeTimeInput.addEventListener('change', () => {
   openTimeInput.setAttribute('max', closeTimeInput.value);
 });
 
+/* cannot set minimum customers per hour more than max customer per hour and vise versa */
+let min = document.querySelector('#min');
+let max = document.querySelector('#max');
+
+min.addEventListener('change', () => {
+  max.setAttribute('min', min.value);
+});
+
+max.addEventListener('change', () => {
+  min.setAttribute('max', max.value);
+});
+
+// makes table from all store objects
 makeTable(stores);
