@@ -1,10 +1,17 @@
 'use strict';
+
+/* Background fish placement */
+
 let fishbg = document.querySelector('.fish-bg');
 
 let renderFish = function () {
+  let fishWidth = 262;
+  let fishHeight = 82;
+
   fishbg.replaceChildren();
-  let xfish = Math.floor(window.innerWidth / 262);
-  let yfish = Math.floor(window.innerHeight / 82);
+
+  let xfish = Math.floor(window.innerWidth / fishWidth);
+  let yfish = Math.floor(window.innerHeight / fishHeight);
   let numberOfFishes = xfish * yfish;
 
   for (let i = 0; i < numberOfFishes; i++) {
@@ -17,6 +24,11 @@ let renderFish = function () {
     fishbg.append(fish);
   }
 };
+
+window.onload = renderFish;
+window.onresize = renderFish;
+
+/* rocketfish animation */
 
 let fishRocket = document.createElement('div');
 fishRocket.style.width = '241px';
@@ -36,19 +48,17 @@ function randomYpos(fishRocket) {
   );
 }
 
-let startSide = function() {
-  let zeroOrOne = Math.round(Math.random());
-  if (zeroOrOne === 1) return '0vw';
-  else { return '100vw'; }
-};
-startSide();
-
 let yPos = randomYpos(fishRocket);
 fishRocket.style.top = yPos;
 fishRocket.style.left = 'calc(100vw - 250px)';
 document.body.append(fishRocket);
-window.onload = renderFish;
-window.onresize = renderFish;
+
+// let startSide = function() {
+//   let zeroOrOne = Math.round(Math.random());
+//   if (zeroOrOne === 1) return '0vw';
+//   else { return '100vw'; }
+// };
+// startSide();
 
 const element = document.querySelector('.fish-rocket');
 let start, previousTimeStamp;

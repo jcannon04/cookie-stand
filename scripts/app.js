@@ -4,6 +4,22 @@
 function getRandomNumberBetween(min, max) {
   return Math.random() * (max - min) + min;
 }
+const militaryTime = {
+  '06:00': '6am',
+  '07:00': '7am',
+  '08:00': '8am',
+  '09:00': '9am',
+  '10:00': '10am',
+  '11:00': '11am',
+  '12:00': '12pm',
+  '13:00': '1pm',
+  '14:00': '2pm',
+  '15:00': '3pm',
+  '16:00': '4pm',
+  '17:00': '5pm',
+  '18:00': '6pm',
+  '19:00': '7pm',
+};
 
 const hoursOfOperation = [
   '6am',
@@ -24,9 +40,9 @@ const hoursOfOperation = [
 
 function Store(location, min, max, avg, hours) {
   this.location = location;
-  this.minCustPerHr = min;
-  this.maxCustPerHr = max;
-  this.avgCookiePerCust = avg;
+  this.minCustPerHr = parseInt(min);
+  this.maxCustPerHr = parseInt(max);
+  this.avgCookiePerCust = parseInt(avg);
   this.hoursOfOperation = hours;
   this.hourlySalesEstimates = this.storeHourlySales();
 }
@@ -38,6 +54,7 @@ Store.prototype.storeHourlySales = function () {
     let cookiesSold = Math.round(
       this.randomCustPerHr() * this.avgCookiePerCust
     );
+    if(this.hoursOfOperation[i] === 0) cookiesSold = 0;
     totalSales += cookiesSold;
     hourlySales.push(cookiesSold);
   }
@@ -78,7 +95,7 @@ function createTableHoursHeader() {
   let tr = document.createElement('tr');
   tr.append(document.createElement('th'));
 
-  for(let i = 0; i < hoursOfOperation.length; i++) {
+  for (let i = 0; i < hoursOfOperation.length; i++) {
     let th = document.createElement('th');
     th.innerHTML = hoursOfOperation[i];
     tr.append(th);
@@ -100,9 +117,9 @@ function createTotalsFooter() {
 
   let numOfRows = table.children.length;
   let numOfColumns = hoursOfOperation.length + 2;
-  for(let i = 1; i < numOfColumns; i++) {
+  for (let i = 1; i < numOfColumns; i++) {
     let sum = 0;
-    for(let j = 1; j < numOfRows; j++) {
+    for (let j = 1; j < numOfRows; j++) {
       let num = parseInt(table.children[j].children[i].innerHTML);
       sum += num;
     }
@@ -113,10 +130,70 @@ function createTotalsFooter() {
   table.append(tableRow);
 }
 
-createTableHoursHeader();
-seattle.render();
-tokyo.render();
-dubai.render();
-paris.render();
-lima.render();
-createTotalsFooter();
+function makeTable(stores) {
+  let table = document.querySelector('table');
+  table.replaceChildren();
+  createTableHoursHeader();
+  stores.forEach((store) => {
+    store.render();
+  });
+  createTotalsFooter();
+}
+
+function createObjectFrom(form) {
+  let location = form.querySelector('#location').value;
+  let max = form.querySelector('#max').value;
+  let min = form.querySelector('#min').value;
+  let avg = form.querySelector('#avg').value;
+
+  let hours = timeInputsToHours();
+  return new Store(location, min, max, avg, hours);
+}
+
+function timeInputsToHours() {
+  let open = form.querySelector('#openTime').value;
+  let close = form.querySelector('#closeTime').value;
+  let hours = [];
+  let i = 0;
+  while (hoursOfOperation[i] !== militaryTime[open]) {
+    hours.push(0);
+    i++;
+  }
+  while (hoursOfOperation[i] !== militaryTime[close]) {
+    hours.push(hoursOfOperation[i]);
+    i++;
+  }
+  while ( i < hoursOfOperation.length) {
+    hours.push(0);
+    i++;
+  }
+  return hours;
+}
+
+let stores = [seattle, tokyo, dubai, paris, lima];
+
+// wire up form submit button
+let form = document.querySelector('form');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let form = document.querySelector('form');
+  let memphis = createObjectFrom(form);
+  console.log(timeInputsToHours());
+  stores.push(memphis);
+  makeTable(stores);
+});
+
+
+/* cannot set close time before open time and vise versa */
+let openTimeInput = document.querySelector('#openTime');
+let closeTimeInput = document.querySelector('#closeTime');
+
+openTimeInput.addEventListener('change', () => {
+  closeTimeInput.setAttribute('min', openTimeInput.value);
+});
+
+closeTimeInput.addEventListener('change', () => {
+  openTimeInput.setAttribute('max', closeTimeInput.value);
+});
+
+makeTable(stores);

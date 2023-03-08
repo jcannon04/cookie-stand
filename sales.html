@@ -1,17 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sales</title>
-    <link rel="stylesheet" href="./styles/sales.css">
-</head>
-<body>
+    <link rel="stylesheet" href="./styles/sales.css" />
+  </head>
+  <body>
+    <main>
+      <form>
+        <fieldset>
+          <legend>Add Store Location</legend>
 
-    <table id="sales-estimates">
+          <p>
+            <label for="location">City</label>
+            <input
+              id="location"
+              name="location"
+              type="text"
+              maxlength="20"
+              required
+            />
+          </p>
+          <p>
+            <label for="min">Minimum customers/hr</label>
+            <input id="min" name="min" type="number" min="0" required />
+          </p>
+          <p>
+            <label for="max">Maximum customers/hr</label>
+            <input id="max" name="max" type="number" min="0" required />
+          </p>
+          <p>
+            <label for="avg">Average cookies/customer</label>
+            <input
+              id="avg"
+              name="avg"
+              type="number"
+              step="0.1"
+              min="0"
+              required
+            />
+          </p>
 
-    </table>
+          <p>
+            <label for="openTime">Open Time</label>
+            <input
+              type="time"
+              name="openTime"
+              id="openTime"
+              step="3600"
+              min="06:00"
+              max="20:00"
+              list="open"
+            />
+            <datalist id="open">
+              <option value="06:00"></option>
+              <option value="07:00"></option>
+              <option value="08:00"></option>
+              <option value="09:00"></option>
+              <option value="10:00"></option>
+              <option value="11:00"></option>
+              <option value="12:00"></option>
+              <option value="13:00"></option>
+              <option value="14:00"></option>
+              <option value="15:00"></option>
+              <option value="16:00"></option>
+              <option value="17:00"></option>
+              <option value="18:00"></option>
+              <option value="19:00"></option>
+              <option value="20:00"></option>
+            </datalist>
+          </p>
+          <p>
+            <label for="closeTime">Close time</label>
+            <input
+              type="time"
+              name="closeTime"
+              id="closeTime"
+              step="3600"
+              min="06:00"
+              max="20:00"
+              list="close"
+            />
+            <datalist id="close">
+              <option value="06:00"></option>
+              <option value="07:00"></option>
+              <option value="08:00"></option>
+              <option value="09:00"></option>
+              <option value="10:00"></option>
+              <option value="11:00"></option>
+              <option value="12:00"></option>
+              <option value="13:00"></option>
+              <option value="14:00"></option>
+              <option value="15:00"></option>
+              <option value="16:00"></option>
+              <option value="17:00"></option>
+              <option value="18:00"></option>
+              <option value="19:00"></option>
+              <option value="20:00"></option>
+            </datalist>
+          </p>
+          <button type="submit">Add Store</button>
+        </fieldset>
+      </form>
+      <table id="sales-estimates"></table>
+    </main>
+    <ul>
+      <li><a href="./index.html">Index</a></li>
+    </ul>
     <script src="scripts/app.js"></script>
-</body>
+  </body>
 </html>
