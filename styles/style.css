@@ -7,17 +7,24 @@ body {
     display: flex;
     justify-content: center;
 }
+
+main {
+    width: 70vw;
+}
+
 h1 {
     font-size: 2.4em;
     font-family: 'Josefin Sans', sans-serif; 
     color: rgb(58, 54, 45);
 }
+
 h3 {
     font-size: 1.4em;
     border-bottom: 2px solid rgb(58, 54, 45);;
     padding-bottom: 0.5em;
 
 }
+
 h2,
 h4,
 h5,
@@ -33,9 +40,18 @@ ul {
     list-style: none;
     padding-left: 0px;
 }
+
 p {
     margin-top: 0px;
     font-size: 1.4em;
+}
+
+a {
+    text-decoration: none;
+}
+
+address {
+    margin-bottom: 10px;
 }
 
 .fish-bg {
@@ -45,8 +61,9 @@ p {
     position: fixed;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;     
 }
+
 .fish {
     background-image: url("../assets/img/salmon.png");
     background-repeat: no-repeat;
@@ -60,20 +77,9 @@ p {
     animation-timing-function: linear;
 }
 .fish2 {
-    background-image: url("../assets/img/salmon.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: relative;
-    width: 262px;
-    height: 82px;
     animation-name: swim2;
-    animation-duration: 20s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
 }
-main {
-    width: 70vw;
-}
+
 .text {
     background-color: rgb(217, 133, 38);
     padding: 10px;
@@ -85,12 +91,10 @@ main {
 .hero {
     background-image: url("../assets/img/family.jpg");
     height: 30%;
-    /* Position and center the image to scale nicely on all screens */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-
     margin-bottom: 20px;
     border-radius: 15px;
 }
@@ -108,13 +112,16 @@ main {
     text-align: left;
 }
 
-address {
-    margin-bottom: 10px;
-}
 
 .sale-item {
     height: 250px;
     width: 250px;
+}
+
+#sales-data-link {
+    position: absolute;
+    top: 20px;
+    right: 10px;
 }
 #cookie {
     background-image: url('../assets/img/frosted-cookie.jpg');
@@ -123,6 +130,7 @@ address {
     background-position: center;
 
 }
+
 #shirt {
     background-image: url('../assets/img/shirt.jpg');
     background-repeat: no-repeat;
@@ -143,6 +151,7 @@ address {
     margin-top: 20px;
 }
 
+/* animation keyframes */
 @keyframes swim {
     0% {
         transform: rotate(0deg);
