@@ -16,11 +16,8 @@ let renderFish = function () {
 
   for (let i = 0; i < numberOfFishes; i++) {
     let fish = document.createElement('div');
-    if (i % 2 === 0) {
-      fish.classList.add('fish');
-    } else {
-      fish.classList.add('fish2');
-    }
+    fish.classList.add('fish');
+    if (i % 2 === 0) fish.classList.add('fish2');
     fishbg.append(fish);
   }
 };
@@ -30,15 +27,9 @@ window.onresize = renderFish;
 
 /* rocketfish animation */
 
-let fishRocket = document.createElement('div');
-fishRocket.style.width = '241px';
-fishRocket.style.height = '91px';
-fishRocket.style.backgroundImage = 'url(../assets/img/chinook.jpg)';
-fishRocket.style.backgroundSize = 'cover';
-fishRocket.style.backgroundRepeat = 'no-repeat';
-fishRocket.style.transform = 'rotateY(30deg)';
-fishRocket.style.position = 'absolute';
-fishRocket.classList.add('fish-rocket');
+let fiftyFifty = function () {
+  return Math.round(Math.random()) ? true : false;
+};
 
 function randomYpos(fishRocket) {
   let screenHeight = window.innerHeight;
@@ -48,57 +39,96 @@ function randomYpos(fishRocket) {
   );
 }
 
-let yPos = randomYpos(fishRocket);
-fishRocket.style.top = yPos;
-fishRocket.style.left = 'calc(100vw - 250px)';
-document.body.append(fishRocket);
+function styleRocketFish() {
+  let fishRocket = document.createElement('div');
+  fishRocket.id = 'fish-rocket';
+  fishRocket.style.width = '241px';
+  fishRocket.style.height = '91px';
+  fishRocket.style.backgroundImage = 'url(../assets/img/chinook.jpg)';
+  fishRocket.style.backgroundSize = 'cover';
+  fishRocket.style.backgroundRepeat = 'no-repeat';
+  fishRocket.style.transform = 'rotateY(30deg)';
+  fishRocket.style.position = 'absolute';
+  fishRocket.classList.add('fish-rocket');
+  let msg = document.createElement('p');
+  msg.innerHTML = 'Click Me!';
+  msg.style.color = 'red';
+  fishRocket.append(msg);
+  fishRocket.style.display = 'flex';
+  fishRocket.style.justifyContent = 'center';
+  fishRocket.style.alignItems = 'center';
+  fishRocket.style.top = randomYpos(fishRocket);
+  fishRocket.style.left = fiftyFifty() ? 'calc(100vw - 250px)' : '12px';
 
-// let startSide = function() {
-//   let zeroOrOne = Math.round(Math.random());
-//   if (zeroOrOne === 1) return '0vw';
-//   else { return '100vw'; }
-// };
-// startSide();
+  fishRocket.addEventListener('click', (e) => {
+    let popup = document.createElement('div');
+    popup.style.height = '324px';
+    popup.style.width = '324px';
+    popup.style.backgroundImage = 'url(../assets/img/shirt.jpg)';
+    popup.style.position = 'absolute';
+    popup.style.left = 'calc(50vw - 162px)';
+    popup.style.top = 'calc(50vh - 162px)';
+    let msg = document.createElement('p');
+    msg.innerHTML = 'You Won!';
+    msg.style.color = 'red';
+    popup.append(msg);
+    popup.style.display = 'flex';
+    popup.style.justifyContent = 'center';
+    popup.style.alignItems = 'center';
+    document.body.append(popup);
+    e.target.style.display = 'none';
+    function clearPopup() {
+      return popup.remove();
+    }
+    setTimeout(clearPopup, 3000);
+    clearInterval(intervalID);
+  });
 
-const element = document.querySelector('.fish-rocket');
-let start, previousTimeStamp;
-let done = false;
+  document.body.append(fishRocket);
+}
 
-let xSpeed = Math.random();
-let ySpeed = Math.random();
-function step(timestamp) {
-  if (start === undefined) {
-    start = timestamp;
-  }
-  const elapsed = timestamp - start;
+function animateRocketFish() {
+  styleRocketFish();
+  const element = document.querySelector('#fish-rocket');
 
-  if (previousTimeStamp !== timestamp) {
-    const deltaX = xSpeed * elapsed;
-    const deltaY = ySpeed * elapsed;
-    console.log(element.style.top);
-    element.style.transform = `translate(${-deltaX}px, ${deltaY}px)`;
-    if (!isElementInViewport(element)) {
+  let start;
+
+  let xSpeed =
+    element.style.left === 'calc(100vw - 250px)'
+      ? -Math.random()/3 + 0.01
+      : Math.random()/3 + 0.01;
+
+  let ySpeed = fiftyFifty() ? Math.random()/3 + 0.1 : -Math.random()/3 + 0.1;
+
+  function step(timestamp) {
+    if (start === undefined) {
+      start = timestamp;
+    }
+
+    const elapsed = timestamp - start;
+    let deltaX = xSpeed * elapsed;
+    let deltaY = ySpeed * elapsed;
+
+    element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+    if (!isElementInViewport(element) || elapsed >= 2000) {
       element.remove();
-      done = true;
+    } else {
+      window.requestAnimationFrame(step);
     }
   }
-  if (!done) {
-    window.requestAnimationFrame(step);
+
+  function isElementInViewport(el) {
+    var rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
   }
+  window.requestAnimationFrame(step);
 }
 
-function isElementInViewport(el) {
-  var rect = el.getBoundingClientRect();
-
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight ||
-        document.documentElement.clientHeight) /* or $(window).height() */ &&
-    rect.right <=
-      (window.innerWidth ||
-        document.documentElement.clientWidth) /* or $(window).width() */
-  );
-}
-window.requestAnimationFrame(step);
+let intervalID = setInterval(animateRocketFish, 10000);

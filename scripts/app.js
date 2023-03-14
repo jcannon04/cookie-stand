@@ -5,6 +5,7 @@ function getRandomNumberBetween(min, max) {
   return Math.random() * (max - min) + min;
 }
 
+// Helper Structs
 const militaryTime = {
   '06:00': '6am',
   '07:00': '7am',
@@ -71,8 +72,17 @@ Store.prototype.randomCustPerHr = function () {
 
 Store.prototype.render = function () {
   let salesTable = document.querySelector('#sales-estimates');
+  let locale = salesTable.querySelector(`#${this.location}`);
+  let storeRow;
+  if (locale) {
+    storeRow = locale;
+    locale.replaceChildren();
+  } else {
+    storeRow = document.createElement('tr');
+    storeRow.id = this.location;
+    salesTable.append(storeRow);
+  }
 
-  let storeRow = document.createElement('tr');
   let storeName = document.createElement('td');
   storeName.innerHTML = this.location;
   storeRow.append(storeName);
@@ -82,7 +92,6 @@ Store.prototype.render = function () {
     td.innerHTML = hour;
     storeRow.append(td);
   });
-  salesTable.append(storeRow);
 };
 
 let seattle = new Store('Seattle', 23, 65, 6.3, hoursOfOperation);
@@ -128,6 +137,7 @@ function createTotalsFooter() {
     td.innerHTML = sum;
     tableRow.append(td);
   }
+  console.log(tableRow);
   table.append(tableRow);
 }
 
@@ -143,6 +153,7 @@ function makeTable(stores) {
 
 function createObjectFrom(form) {
   let location = form.querySelector('#location').value;
+
   let max = form.querySelector('#max').value;
   let min = form.querySelector('#min').value;
   let avg = form.querySelector('#avg').value;
@@ -177,8 +188,15 @@ let stores = [seattle, tokyo, dubai, paris, lima];
 let form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  let memphis = createObjectFrom(form);
-  stores.push(memphis);
+  let location = form.querySelector('#location');
+  let newStore = createObjectFrom(form);
+
+  let storeLocations = stores.map( e => e.location );
+  if (!storeLocations.includes(location)) {
+    stores.push(newStore);
+  }
+
+  newStore.render();
   makeTable(stores);
   form.reset();
 });

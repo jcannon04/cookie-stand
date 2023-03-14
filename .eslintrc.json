@@ -14,7 +14,6 @@
       "eqeqeq": ["error", "always"],
       "no-console": "off",
       "no-undefined": "off",
-      "indent": ["error", 2],
       "quotes": ["warn", "single"],
       "no-multi-spaces": [
         "warn",
